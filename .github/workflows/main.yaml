@@ -43,7 +43,7 @@ jobs:
         id: cache
         with:
           path: ${{ github.workspace }}/vcpkg
-          key: ${{ hashFiles('${{ github.workspace }}/external/response_file.txt') }}
+          key: ${{ hashFiles('external/response_file.txt') }}
 
 
       - name: Install dependencies on windows
