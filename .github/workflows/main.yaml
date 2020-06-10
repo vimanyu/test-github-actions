@@ -47,7 +47,7 @@ jobs:
 
 
       - name: Install dependencies on windows
-        if: startsWith(matrix.config.os, 'windows') && steps.cach.outputs.cache-hit != 'true'
+        if: startsWith(matrix.config.os, 'windows') && steps.cache.outputs.cache-hit != 'true'
         run: |
           ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.bat -disableMetrics
           ${{ github.workspace }}/vcpkg/vcpkg install @external/response_file.txt
