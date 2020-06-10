@@ -25,5 +25,5 @@ ExternalProject_Add(
 
 
 add_executable(myapp src/main.cpp)
-target_link_libraries(myapp libuv)
+target_link_libraries(myapp)
 
