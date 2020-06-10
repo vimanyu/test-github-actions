@@ -68,6 +68,10 @@ jobs:
         run: |
           mkdir build
           echo "Checking tool chain file exists"
+          ls vcpkg
+          echo "Checking one level deep"
+          ls vcpkg/scripts/buildsystems
+          echo "absolute path ls"
           ls ${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
           echo "Checking installed directory"
           ls ${{ github.workspace }}/vcpkg/installed
