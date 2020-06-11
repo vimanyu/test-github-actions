@@ -24,6 +24,9 @@ ExternalProject_Add(
 )
 
 
+find_package(tinyxml REQUIRED)
+
+
 add_executable(myapp src/main.cpp)
-target_link_libraries(myapp)
+target_link_libraries(myapp unofficial-tinyxml::unofficial-tinyxml)
 

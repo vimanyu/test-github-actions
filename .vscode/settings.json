@@ -1,0 +1,9 @@
+{
+    "cmake.configureArgs": [
+        "-DFIREBASE_CPP_SDK_DIR=/Users/vimanyujain/dev/cpp/thirdparty/firebase/source",
+        "-DOPENSSL_ROOT_DIR=/Users/vimanyujain/homebrew/Cellar/openssl@1.1/1.1.1g/",
+        "-DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake"
+    ],
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "git.ignoreLimitWarning": true,
+}
