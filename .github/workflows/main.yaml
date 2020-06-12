@@ -96,7 +96,6 @@ jobs:
             -S . \
             -B build \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
-            -DCMAKE_GENERATOR_PLATFORM=${{ matrix.arch }} \
             -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" \
             -DVCPKG_TARGET_TRIPLET=${{ matrix.arch }}-linux
 
@@ -110,7 +109,6 @@ jobs:
             -S . \
             -B build \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
-            -DCMAKE_GENERATOR_PLATFORM=${{ matrix.arch }} \
             -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" \
             -DVCPKG_TARGET_TRIPLET=${{ matrix.arch }}-osx
 
