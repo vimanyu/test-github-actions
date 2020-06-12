@@ -9,8 +9,8 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    name: ${{ matrix.config.name }}
-    runs-on: ${{ matrix.config.os }}
+    name: ${{ matrix.os }}-${{ matrix.build_type }}-${{ matrix.arch }}-${{ matrix.python_version }}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
