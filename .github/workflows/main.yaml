@@ -46,21 +46,21 @@ jobs:
         if: startsWith(matrix.os, 'windows') && steps.cache.outputs.cache-hit != 'true'
         run: |
           ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.bat -disableMetrics
-          ${{ github.workspace }}/vcpkg/vcpkg install tinyxml --triplet ${{ matrix.os }}-${{ matrix.arch }}-static
+          ${{ github.workspace }}/vcpkg/vcpkg install tinyxml --triplet ${{ matrix.arch }}-windows-static
         # cmd "${{ matrix.environment_script }}"
 
       - name: Install dependencies on linux 
         if: startsWith(matrix.os, 'ubuntu') && steps.cache.outputs.cache-hit != 'true'
         run: |
           ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.sh -disableMetrics
-          ${{ github.workspace }}/vcpkg/vcpkg install tinyxml --triplet ${{ matrix.os }}-${{ matrix.arch }}
+          ${{ github.workspace }}/vcpkg/vcpkg install tinyxml --triplet ${{ matrix.arch }}-linux
           #${{ github.workspace }}/vcpkg/vcpkg install @external/response_file.txt
 
       - name: Install dependencies on macos
         if: startsWith(matrix.os, 'macos') && steps.cache.outputs.cache-hit != 'true'
         run: |
           ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.sh -disableMetrics
-          ${{ github.workspace }}/vcpkg/vcpkg install tinyxml --triplet osx-${{ matrix.arch }}
+          ${{ github.workspace }}/vcpkg/vcpkg install tinyxml --triplet ${{ matrix.arch }}-osx
           #${{ github.workspace }}/vcpkg/vcpkg install @external/response_file.txt
 
       - name: Setup python and install dependencies
@@ -83,7 +83,7 @@ jobs:
             -B build \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
             -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake \
-            -DVCPKG_TARGET_TRIPLET=${{ matrix.os }}-${{ matrix.arch }}-static
+            -DVCPKG_TARGET_TRIPLET=${{ matrix.arch }}-windows-static
 
       - name: Configure (linux)
         if: startsWith(matrix.os, 'ubuntu')
@@ -96,7 +96,7 @@ jobs:
             -B build \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
             -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" \
-            -DVCPKG_TARGET_TRIPLET=${{ matrix.os }}-${{ matrix.arch }}
+            -DVCPKG_TARGET_TRIPLET=${{ matrix.arch }}-linux
 
       - name: Configure (macos)
         if: startsWith(matrix.os, 'macos')
@@ -109,7 +109,7 @@ jobs:
             -B build \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
             -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" \
-            -DVCPKG_TARGET_TRIPLET=osx-${{ matrix.arch }}
+            -DVCPKG_TARGET_TRIPLET=${{ matrix.arch }}-osx
 
       - name: Build
         shell: bash
