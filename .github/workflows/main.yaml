@@ -73,7 +73,7 @@ jobs:
           pip install protobuf
           
       - name: Configure (windows)
-        if: startsWith(matrix.config.os, 'windows')
+        if: startsWith(matrix.os, 'windows')
         shell: bash
         run: |
           mkdir build
@@ -86,7 +86,7 @@ jobs:
             -DVCPKG_TARGET_TRIPLET=${{ matrix.os }}-${{ matrix.arch }}-static
 
       - name: Configure (linux)
-        if: startsWith(matrix.config.os, 'ubuntu')
+        if: startsWith(matrix.os, 'ubuntu')
         shell: bash
         run: |
           mkdir build
@@ -98,8 +98,8 @@ jobs:
             -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" \
             -DVCPKG_TARGET_TRIPLET=${{ matrix.os }}-${{ matrix.arch }}
 
-      - name: Configure (linux)
-        if: startsWith(matrix.config.os, 'macos')
+      - name: Configure (macos)
+        if: startsWith(matrix.os, 'macos')
         shell: bash
         run: |
           mkdir build
