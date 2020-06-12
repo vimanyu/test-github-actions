@@ -79,7 +79,7 @@ jobs:
         run: |
           ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.bat -disableMetrics
           #${{ github.workspace }}/vcpkg/vcpkg install @external/response_file.txt
-          ${{ github.workspace }}/vcpkg/vcpkg install tinyxlm --triplet ${{ matrix.arch }}-windows-static
+          ${{ github.workspace }}/vcpkg/vcpkg install tinyxml --triplet ${{ matrix.arch }}-windows-static
         # cmd "${{ matrix.config.environment_script }}"
 
 
