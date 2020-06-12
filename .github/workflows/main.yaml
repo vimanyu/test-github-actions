@@ -76,7 +76,6 @@ jobs:
 
 
       - name: Install dependencies on windows
-        if: startsWith(matrix.config.os, 'windows') && steps.cache.outputs.cache-hit != 'true'
         run: |
           ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.bat -disableMetrics
           ${{ github.workspace }}/vcpkg/vcpkg install @external/response_file.txt
@@ -84,6 +83,7 @@ jobs:
 
 
       - name: Setup python and install dependencies
+        if: false
         uses: actions/setup-python@v2
         with:
           python-version: 2.7
@@ -104,6 +104,7 @@ jobs:
             -G "${{ matrix.config.generators }}" \
             -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" \
             -DVCPKG_TARGET_TRIPLET=x86-windows
+
       - name: Build
         shell: bash
         run: cmake --build build --config ${{ matrix.config.build_type }} -j 8
