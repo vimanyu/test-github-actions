@@ -82,14 +82,16 @@ jobs:
         # cmd "${{ matrix.config.environment_script }}"
 
 
-      - name: Setup python and install dependencies
+      - name: Setup python 
         if: false
         uses: actions/setup-python@v2
         with:
           python-version: 2.7
           architecture: x64
-      - run: |
+
+      - name: Install pip packages
         if: false
+        run: |
           python -m pip install --upgrade pip
           pip install protobuf
           
