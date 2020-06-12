@@ -9,7 +9,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    name: ${{ matrix.os }}-${{ matrix.build_type }}-${{ matrix.arch }}-${{ matrix.python_version }}
+    name: ${{ matrix.os }}-${{ matrix.build_type }}-${{ matrix.arch }}-${{ matrix.python_version }}-${{ matrix.generator }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -17,11 +17,18 @@ jobs:
         build_type: ["Release", "Debug"]
         arch: ["x64", "x86"]
         python_version: [2.7, 3.6]
+        generator: ["Ninja", "Unix Makefiles", "Visual Studio 2019"]
         exclude:
         - os: macos-latest
           arch: "x86"
         - os: ubuntu-latest
           arch: "x86"
+        - os: macos-latest
+          generator: "Visual Studio 2019"
+        - os: ubuntu-latest
+          generator: "Visual Studio 2019"
+        - os: windows-latest
+          generator: "Unix Makefiles"
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -29,18 +36,50 @@ jobs:
         with:
           submodules: true
 
+      - name: Set env variables for subsequent steps (windows)
+        if: startswith(matrix.os, 'windows')
+        run: |
+          export TRIPLET=${{matrix.arch}}-windows-static
+          echo "::set-env name=TRIPLET::$TRIPLET"
+          export TRIPLET_FILENAME=vcpkg_$TRIPLET_response_file.txt
+          echo "::set-env name=TRIPLET_FILENAME::$TRIPLET_FILENAME"
+
+      - name: Set env variables for subsequent steps (windows)
+        if: startswith(matrix.os, 'windows') && startswith(matrix.arch, 'x86')
+        run: |
+          export WINDOWS_COMPILERFLAG=${{matrix.arch}}-windows-static
+          echo "::set-env name=TRIPLET::$TRIPLET"
+          export TRIPLET_FILENAME=vcpkg_$TRIPLET_response_file.txt
+          echo "::set-env name=TRIPLET_FILENAME::$TRIPLET_FILENAME"
+
+      - name: Set env variables for subsequent steps (ubuntu)
+        if: startswith(matrix.os, 'ubuntu')
+        run: |
+          export TRIPLET=${{matrix.arch}}-linux
+          echo "::set-env name=TRIPLET::$TRIPLET"
+          export TRIPLET_FILENAME=vcpkg_$TRIPLET_response_file.txt
+          echo "::set-env name=TRIPLET_FILENAME::$TRIPLET_FILENAME"
+
+      - name: Set env variables for subsequent steps (macos)
+        if: startswith(matrix.os, 'macos')
+        run: |
+          export TRIPLET=${{matrix.arch}}-osx
+          echo "::set-env name=TRIPLET::$TRIPLET"
+          export TRIPLET_FILENAME=vcpkg_$TRIPLET_response_file.txt
+          echo "::set-env name=TRIPLET_FILENAME::$TRIPLET_FILENAME"
 
       - name: Print env
         run: |
           echo github.event.action: ${{ github.event.action }}
           echo github.event_name: ${{ github.event_name }}
+          echo $TRIPLET
+          echo $TRIPLETFILE
       
       - uses: actions/cache@v2
         id: cache
         with:
           path: ${{ github.workspace }}/vcpkg
           key: ${{ matrix.os }}-${{ hashFiles('external/response_file.txt') }}
-
 
       - name: Install dependencies on windows
         if: startsWith(matrix.os, 'windows') && steps.cache.outputs.cache-hit != 'true'
@@ -72,8 +111,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install protobuf
           
-      - name: Configure (windows)
-        if: startsWith(matrix.os, 'windows')
+      - name: Configure (windows-x86)
+        if: startsWith(matrix.os, 'windows') && startswith(matrix.arch, 'x86')
         shell: bash
         run: |
           mkdir build
@@ -81,8 +120,22 @@ jobs:
           cmake \
             -S . \
             -B build \
+            -A Win32
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
-            -DCMAKE_GENERATOR_PLATFORM=${{ matrix.arch }} \
+            -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake \
+            -DVCPKG_TARGET_TRIPLET=${{ matrix.arch }}-windows-static
+
+      - name: Configure (windows-x64)
+        if: startsWith(matrix.os, 'windows') && startswith(matrix.arch, 'x64')
+        shell: bash
+        run: |
+          mkdir build
+          ls vcpkg/installed
+          cmake \
+            -S . \
+            -B build \
+            -A x64
+            -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
             -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake \
             -DVCPKG_TARGET_TRIPLET=${{ matrix.arch }}-windows-static
 
