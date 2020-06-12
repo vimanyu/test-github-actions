@@ -39,7 +39,7 @@ jobs:
         id: cache
         with:
           path: ${{ github.workspace }}/vcpkg
-          key: ${{ hashFiles('external/response_file.txt') }}
+          key: ${{ matrix.os }}-${{ hashFiles('external/response_file.txt') }}
 
 
       - name: Install dependencies on windows
@@ -82,7 +82,7 @@ jobs:
             -S . \
             -B build \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
-            -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" \
+            -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake \
             -DVCPKG_TARGET_TRIPLET=${{ matrix.os }}-${{ matrix.arch }}-static
 
       - name: Configure (linux)
