@@ -94,6 +94,7 @@ jobs:
           #${{ github.workspace }}/vcpkg/vcpkg install @external/response_file.txt
 
       - name: Setup python and install dependencies
+        if: false
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python_version }}
@@ -107,6 +108,7 @@ jobs:
         shell: bash
         run: |
           mkdir build
+          ls vcpkg
           ls vcpkg/installed
           cmake \
             -S . \
@@ -121,6 +123,7 @@ jobs:
         shell: bash
         run: |
           mkdir build
+          ls vcpkg
           ls vcpkg/installed
           cmake \
             -S . \
