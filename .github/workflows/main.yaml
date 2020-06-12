@@ -72,7 +72,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install protobuf
           
-      - name: Configure
+      - name: Configure (windows)
+        if: startsWith(matrix.config.os, 'windows')
         shell: bash
         run: |
           mkdir build
@@ -81,13 +82,39 @@ jobs:
             -S . \
             -B build \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
-            -G "${{ matrix.config.generators }}" \
             -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" \
-            -DVCPKG_TARGET_TRIPLET=${-windows
+            -DVCPKG_TARGET_TRIPLET=${{ matrix.os }}-${{ matrix.arch }}-static
+
+      - name: Configure (linux)
+        if: startsWith(matrix.config.os, 'ubuntu')
+        shell: bash
+        run: |
+          mkdir build
+          ls vcpkg/installed
+          cmake \
+            -S . \
+            -B build \
+            -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
+            -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" \
+            -DVCPKG_TARGET_TRIPLET=${{ matrix.os }}-${{ matrix.arch }}
+
+      - name: Configure (linux)
+        if: startsWith(matrix.config.os, 'macos')
+        shell: bash
+        run: |
+          mkdir build
+          ls vcpkg/installed
+          cmake \
+            -S . \
+            -B build \
+            -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
+            -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" \
+            -DVCPKG_TARGET_TRIPLET=osx-${{ matrix.arch }}
 
       - name: Build
         shell: bash
-        run: cmake --build build --config ${{ matrix.config.build_type }} -j 8
-        find build -name "*.a"
-        find build -name "*.lib"
+        run: |
+            cmake --build build --config ${{ matrix.build_type }} -j 8
+            find build -name "*.a"
+            find build -name "*.lib"
 
