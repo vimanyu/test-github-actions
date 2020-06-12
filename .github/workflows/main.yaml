@@ -43,21 +43,21 @@ jobs:
 
 
       - name: Install dependencies on windows
-        if: startsWith(matrix.config.os, 'windows') && steps.cache.outputs.cache-hit != 'true'
+        if: startsWith(matrix.os, 'windows') && steps.cache.outputs.cache-hit != 'true'
         run: |
           ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.bat -disableMetrics
           ${{ github.workspace }}/vcpkg/vcpkg install tinyxml --triplet ${{ matrix.os }}-${{ matrix.arch }}-static
-        # cmd "${{ matrix.config.environment_script }}"
+        # cmd "${{ matrix.environment_script }}"
 
       - name: Install dependencies on linux 
-        if: startsWith(matrix.config.os, 'ubuntu') && steps.cache.outputs.cache-hit != 'true'
+        if: startsWith(matrix.os, 'ubuntu') && steps.cache.outputs.cache-hit != 'true'
         run: |
           ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.sh -disableMetrics
           ${{ github.workspace }}/vcpkg/vcpkg install tinyxml --triplet ${{ matrix.os }}-${{ matrix.arch }}
           #${{ github.workspace }}/vcpkg/vcpkg install @external/response_file.txt
 
       - name: Install dependencies on macos
-        if: startsWith(matrix.config.os, 'macos') && steps.cache.outputs.cache-hit != 'true'
+        if: startsWith(matrix.os, 'macos') && steps.cache.outputs.cache-hit != 'true'
         run: |
           ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.sh -disableMetrics
           ${{ github.workspace }}/vcpkg/vcpkg install tinyxml --triplet osx-${{ matrix.arch }}
