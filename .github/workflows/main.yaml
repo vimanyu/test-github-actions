@@ -71,9 +71,9 @@ jobs:
         run: |
           echo github.event.action: ${{ github.event.action }}
           echo github.event_name: ${{ github.event_name }}
-          echo $TRIPLET
-          echo $TRIPLETFILE
           echo ${{ matrix.vcpkg_triplet }}
+          echo $TRIPLET
+          echo $TRIPLET_FILENAME
       
       - uses: actions/cache@v2
         id: cache
