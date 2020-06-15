@@ -19,6 +19,13 @@ jobs:
         arch: ["x64", "x86"]
         python_version: [2.7, 3.6]
         generator: ["Ninja", "Unix Makefiles", "Visual Studio 2019"]
+        include:
+        - os: windows-latest
+          arch: "x64"
+          vcpkg_triplet: "x64-windows-static"
+        - os: windows-latest
+          arch: "x86"
+          vcpkg_triplet: "x86-windows-static"
         exclude:
         - os: macos-latest
           arch: "x86"
@@ -30,7 +37,6 @@ jobs:
           generator: "Visual Studio 2019"
         - os: windows-latest
           generator: "Unix Makefiles"
-        - os: macos-latest
         - os: ubuntu-latest
         - generator: "Ninja"
         - build_type: "Debug"
@@ -67,6 +73,7 @@ jobs:
           echo github.event_name: ${{ github.event_name }}
           echo $TRIPLET
           echo $TRIPLETFILE
+          echo matrix.vcpkg_triplet
       
       - uses: actions/cache@v2
         id: cache
