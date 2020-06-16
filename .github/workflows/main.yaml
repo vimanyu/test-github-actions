@@ -23,9 +23,6 @@ jobs:
         - os: windows-latest
           arch: "x64"
           vcpkg_triplet: "x64-windows-static"
-        - os: windows-latest
-          arch: "x86"
-          vcpkg_triplet: "x86-windows-static"
         exclude:
         - os: macos-latest
           arch: "x86"
@@ -38,6 +35,7 @@ jobs:
         - os: windows-latest
           generator: "Unix Makefiles"
         - os: ubuntu-latest
+        - os: macos-latest
         - generator: "Ninja"
         - build_type: "Debug"
         - python_version: 3.6
@@ -81,7 +79,7 @@ jobs:
         with:
           path: ${{ github.workspace }}/vcpkg
           #key: ${{ matrix.os }}-${{ hashFiles('${{ env.RESPONSE_FILE }}') }}
-          key: ${{ matrix.os }}-${{ hashFiles('external/response_file.txt') }}
+          key: ${{ matrix.os }}-${{ hashFiles('${{ matrix.vcpkg_triplet}}') }}
 
 
       - name: Install dependencies on windows
