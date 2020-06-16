@@ -80,9 +80,7 @@ jobs:
         id: cache
         with:
           path: ${{ github.workspace }}/vcpkg
-          key: ${{ matrix.os }}-${{ hashFiles( '${{ env.RESPONSE_FILE }}' ) }}
-          restore-keys: |
-            ${{matrix.os}}-${{hashFiles($RESPONSE_FILE)}}
+          key: ${{ matrix.os }}-${{ hashFiles('${{ env.RESPONSE_FILE }}') }}
 
 
       - name: Install dependencies on windows
