@@ -79,8 +79,8 @@ jobs:
         id: cache
         with:
           path: ${{ github.workspace }}/vcpkg
-          #key: ${{ matrix.os }}-${{ hashFiles(format('external/{0}', env.RESPONSE_FILE) }}
-          key: ${{ matrix.os }}-${{ hashFiles('**env.RESPONSE_FILE**') }}
+          key: dev-${{ matrix.os }}-${{ hashFiles(format('external/{0}', env.RESPONSE_FILE) }}
+          #key: ${{ matrix.os }}-${{ hashFiles('**env.RESPONSE_FILE**') }}
 
 
       - name: Install dependencies on windows
