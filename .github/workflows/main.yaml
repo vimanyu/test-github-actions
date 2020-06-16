@@ -98,7 +98,7 @@ jobs:
         id: pip-cache
         run: |
           echo "::set-output name=dir::$(pip cache dir)"
-          echo "test"
+          echo "test_vcpkg_installed"
 
       - name: pip cache
         id: cache-pip
