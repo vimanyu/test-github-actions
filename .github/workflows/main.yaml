@@ -66,6 +66,7 @@ jobs:
       - name: Set env variables for subsequent steps (all)
         run: |
           echo "::set-env name=TRIPLET_FILENAME::vcpkg_${{ env.TRIPLET }}_response_file.txt"
+          echo "::set-env name=RESPONSE_FILE::external/response_file.txt"
 
       - name: Print env
         run: |
@@ -79,14 +80,17 @@ jobs:
         id: cache
         with:
           path: ${{ github.workspace }}/vcpkg
-          key: ${{ matrix.os }}-${{ hashFiles('external/response_file.txt') }}
+          key: ${{ matrix.os }}-${{ hashFiles( "${{ env.RESPONSE_FILE }}" ) }}
+          restore-keys: |
+            ${{matrix.os}}-${{hashFiles($RESPONSE_FILE)}}
 
 
       - name: Install dependencies on windows
         run: |
           ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.bat -disableMetrics
           #${{ github.workspace }}/vcpkg/vcpkg install @external/response_file.txt
-          ${{ github.workspace }}/vcpkg/vcpkg install tinyxml --triplet ${{ matrix.arch }}-windows-static
+          ${{ github.workspace }}/vcpkg/vcpkg install @"${{ env.RESPONSE_FILE }}"
+          #${{ github.workspace }}/vcpkg/vcpkg install tinyxml --triplet ${{ matrix.arch }}-windows-static
         # cmd "${{ matrix.config.environment_script }}"
 
 
@@ -104,6 +108,7 @@ jobs:
           pip install protobuf
           
       - name: Configure
+        if: false
         shell: bash
         run: |
           mkdir build
@@ -117,6 +122,7 @@ jobs:
             -DVCPKG_TARGET_TRIPLET=x86-windows-static
 
       - name: Build
+        if: false
         shell: bash
         run: cmake --build build --config ${{ matrix.config.build_type }} -j 8
 
