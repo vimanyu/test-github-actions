@@ -82,7 +82,7 @@ jobs:
           path: ${{ github.workspace }}/vcpkg
           # WORKS
           #key: dev-${{ matrix.os }}-${{ hashFiles(format('external/{0}', env.RESPONSE_FILE)) }}
-          key: dev-${{ matrix.os }}-${{ hashFiles(format('{0}', env.RESPONSE_FILE_FULL)) }}
+          key: dev1-${{ matrix.os }}-${{ hashFiles(format('{0}', env.RESPONSE_FILE_FULL)) }}
 
 
       - name: Install dependencies on windows
@@ -104,7 +104,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ steps.pip-cache.outputs.dir }}
-          key: dev-${{ runner.os }}-pip-${{ hashFiles('external/pip_requirements.txt') }}
+          key: dev1-${{ runner.os }}-pip-${{ hashFiles('external/pip_requirements.txt') }}
 
       - name: Setup python 
         uses: actions/setup-python@v2
