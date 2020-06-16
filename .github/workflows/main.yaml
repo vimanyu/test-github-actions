@@ -39,6 +39,7 @@ jobs:
         - generator: "Ninja"
         - build_type: "Debug"
         - python_version: 3.6
+        - arch: "x86"
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -79,7 +80,7 @@ jobs:
         with:
           path: ${{ github.workspace }}/vcpkg
           #key: ${{ matrix.os }}-${{ hashFiles('${{ env.RESPONSE_FILE }}') }}
-          key: ${{ matrix.os }}-${{ hashFiles('${{ matrix.vcpkg_triplet}}') }}
+          key: ${{ matrix.os }}-${{ hashFiles('**env.RESPONSE_FILE**') }}
 
 
       - name: Install dependencies on windows
