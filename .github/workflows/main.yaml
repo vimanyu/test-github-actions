@@ -80,14 +80,15 @@ jobs:
         id: cache
         with:
           path: ${{ github.workspace }}/vcpkg
-          key: ${{ matrix.os }}-${{ hashFiles('${{ env.RESPONSE_FILE }}') }}
+          #key: ${{ matrix.os }}-${{ hashFiles('${{ env.RESPONSE_FILE }}') }}
+          key: ${{ matrix.os }}-${{ hashFiles('external/response_file.txt') }}
 
 
       - name: Install dependencies on windows
         run: |
           ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.bat -disableMetrics
           #${{ github.workspace }}/vcpkg/vcpkg install @external/response_file.txt
-          ${{ github.workspace }}/vcpkg/vcpkg install @"${{ env.RESPONSE_FILE }}"
+          ${{ github.workspace }}/vcpkg/vcpkg install @${{env.RESPONSE_FILE}}
           #${{ github.workspace }}/vcpkg/vcpkg install tinyxml --triplet ${{ matrix.arch }}-windows-static
         # cmd "${{ matrix.config.environment_script }}"
 
