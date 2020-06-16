@@ -98,6 +98,7 @@ jobs:
         id: pip-cache
         run: |
           echo "::set-output name=dir::$(pip cache dir)"
+          echo "test"
 
       - name: pip cache
         id: cache-pip
