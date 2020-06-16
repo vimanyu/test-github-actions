@@ -79,10 +79,10 @@ jobs:
       - uses: actions/cache@v2
         id: cache
         with:
-          path: ${{ github.workspace }}/vcpkg
+          path: vcpkg
           # WORKS
           #key: dev-${{ matrix.os }}-${{ hashFiles(format('external/{0}', env.RESPONSE_FILE)) }}
-          key: dev1-${{ matrix.os }}-${{ hashFiles(format('{0}', env.RESPONSE_FILE_FULL)) }}
+          key: dev2-${{ matrix.os }}-${{ hashFiles(format('{0}', env.RESPONSE_FILE_FULL)) }}
 
 
       - name: Install dependencies on windows
