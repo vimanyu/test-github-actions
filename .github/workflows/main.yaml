@@ -120,7 +120,6 @@ jobs:
           pip install -r external/pip_requirements.txt
           
       - name: Configure
-        if: false
         shell: bash
         run: |
           mkdir build
@@ -130,11 +129,10 @@ jobs:
             -B build \
             -A Win32 \
             -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} \
-            -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" \
+            -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake \
             -DVCPKG_TARGET_TRIPLET=x86-windows-static
 
       - name: Build
-        if: false
         shell: bash
         run: cmake --build build --config ${{ matrix.config.build_type }} -j 8
 

@@ -1,1 +1,3 @@
 tinyxml
+--triplet
+x86-windows-static
