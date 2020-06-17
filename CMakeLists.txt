@@ -4,6 +4,9 @@ project(test-github-action
         VERSION 1.0
         LANGUAGES C CXX)
 
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MT")
+
 include(ExternalProject)
 
 set(version v1.33.1)
