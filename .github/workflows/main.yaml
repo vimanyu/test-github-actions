@@ -51,6 +51,7 @@ jobs:
         if: startswith(matrix.os, 'windows')
         run: |
           echo "::set-env name=TRIPLET::${{matrix.arch}}-windows-static"
+          echo "test"
 
       - name: Set env variables for subsequent steps (ubuntu)
         if: startswith(matrix.os, 'ubuntu')
