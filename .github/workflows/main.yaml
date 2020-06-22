@@ -39,7 +39,6 @@ jobs:
         - generator: "Ninja"
         - build_type: "Debug"
         - python_version: 3.6
-        - arch: "x86"
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
