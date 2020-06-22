@@ -69,6 +69,16 @@ jobs:
           echo "::set-env name=RESPONSE_FILE::response_file.txt"
           echo "::set-env name=RESPONSE_FILE_FULL::external/response_file.txt"
 
+      - name: Set env variable test
+        if: matrix.arch == "x86"
+        run: |
+          echo "::set-env name=SOMETHING_FOO::1"
+
+      - name: Print env variable test
+        if: env.SOMETHING_FOO
+        run: |
+          echo  "YEAH THIS WORKED"
+
       - name: Print env
         run: |
           echo github.event.action: ${{ github.event.action }}
