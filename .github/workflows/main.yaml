@@ -70,7 +70,7 @@ jobs:
           echo "::set-env name=RESPONSE_FILE_FULL::external/response_file.txt"
 
       - name: Set env variable test
-        if: matrix.arch == "x86"
+        if: matrix.arch=='x86'
         run: |
           echo "::set-env name=SOMETHING_FOO::1"
 
