@@ -84,6 +84,10 @@ jobs:
         run: |
           cp external/x86-linux.cmake vcpkg/triplets/x86-linux.cmake
 
+      - name: Install gcc 32bit support libraries
+        run: |
+          sudo apt install gcc-multilib
+
       - name: Install dependencies on windows
         if: steps.cache.outputs.cache-hit!='true'
         run: |
