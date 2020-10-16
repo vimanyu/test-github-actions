@@ -135,4 +135,11 @@ jobs:
         shell: bash
         run: cmake --build build --config ${{ matrix.config.build_type }} -j 8
 
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: crash-vcpkg-compiler-not-found
+          path: |
+            vcpkg/buildtrees/detect_compiler/config-x86-linux-rel-out.log
 
