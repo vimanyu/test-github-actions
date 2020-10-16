@@ -83,7 +83,7 @@ jobs:
         run: |
           sudo apt install gcc-multilib g++-multilib
           sudo apt list libglib*
-          sudo apt install libglib2.0-dev-bin:i386
+          sudo apt install libglib2.0-dev
 
       - name: Install dependencies on windows
         if: steps.cache.outputs.cache-hit!='true'
