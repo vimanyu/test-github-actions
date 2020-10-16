@@ -1,3 +1,4 @@
 tinyxml
+openssl
 --triplet
-x86-windows-static
+x86-linux
