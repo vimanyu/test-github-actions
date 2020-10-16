@@ -86,7 +86,7 @@ jobs:
 
       - name: Install gcc 32bit support libraries
         run: |
-          sudo apt install gcc-multilib
+          sudo apt install gcc-multilib g++multilib libc6-dev-i386
           sudo apt install lib32stdc++6
 
       - name: Install dependencies on windows
