@@ -92,9 +92,9 @@ jobs:
       - name: Install dependencies on windows
         if: steps.cache.outputs.cache-hit!='true'
         run: |
-          ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.bat -disableMetrics
+          ${{ github.workspace }}/vcpkg/bootstrap-vcpkg -disableMetrics
           #${{ github.workspace }}/vcpkg/vcpkg install @external/response_file.txt
-          ${{ github.workspace }}/vcpkg/vcpkg install @${{env.RESPONSE_FILE_FULL}}
+          ${{ github.workspace }}/vcpkg/vcpkg install @${{env.RESPONSE_FILE_FULL}} --debug
           #${{ github.workspace }}/vcpkg/vcpkg install tinyxml --triplet ${{ matrix.arch }}-windows-static
         # cmd "${{ matrix.config.environment_script }}"
 
