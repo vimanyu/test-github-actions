@@ -141,5 +141,5 @@ jobs:
         with:
           name: crash-vcpkg-compiler-not-found
           path: |
-            vcpkg/buildtrees/detect_compiler/config-x86-linux-rel-out.log
+            vcpkg/buildtrees/detect_compiler
 
