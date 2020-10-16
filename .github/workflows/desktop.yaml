@@ -16,16 +16,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
+        os: [ubuntu-latest]
         build_type: ["Release", "Debug"]
-        arch: ["x64", "x86"]
+        arch: ["x86"]
         python_version: [3.6]
-        generator: ["Ninja", "Unix Makefiles", "Visual Studio 2019"]
-        exclude:
-        - os: macos-latest
-        - os: windows-latest
-        - os: ubuntu-latest
-          generator: "Visual Studio 2019"
+        generator: ["Unix Makefiles"]
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -86,7 +81,9 @@ jobs:
 
       - name: Install gcc 32bit support libraries
         run: |
-          sudo apt install gcc-multilib g++-multilib libc6-dev-i386 lib32stdc++6
+          sudo apt install gcc-multilib g++-multilib
+          sudo apt list libglib*
+          sudo apt install libglib2.0-dev-bin:i386
 
       - name: Install dependencies on windows
         if: steps.cache.outputs.cache-hit!='true'
