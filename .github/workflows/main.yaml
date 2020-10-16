@@ -21,13 +21,6 @@ jobs:
         arch: ["x64", "x86"]
         python_version: [3.6]
         generator: ["Ninja", "Unix Makefiles", "Visual Studio 2019"]
-        include:
-        - os: windows-latest
-          arch: "x64"
-          vcpkg_triplet: "x64-windows-static"
-        - os: windows-latest
-          arch: "x86"
-          vcpkg_triplet: "x86-windows-static"
         exclude:
         - os: macos-latest
         - os: windows-latest
@@ -76,7 +69,6 @@ jobs:
         run: |
           echo github.event.action: ${{ github.event.action }}
           echo github.event_name: ${{ github.event_name }}
-          echo ${{ matrix.vcpkg_triplet }}
           echo $TRIPLET
           echo $TRIPLET_FILENAME
       
@@ -92,7 +84,7 @@ jobs:
       - name: Install dependencies on windows
         if: steps.cache.outputs.cache-hit!='true'
         run: |
-          ${{ github.workspace }}/vcpkg/bootstrap-vcpkg -disableMetrics
+          ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.sh -disableMetrics
           #${{ github.workspace }}/vcpkg/vcpkg install @external/response_file.txt
           ${{ github.workspace }}/vcpkg/vcpkg install @${{env.RESPONSE_FILE_FULL}} --debug
           #${{ github.workspace }}/vcpkg/vcpkg install tinyxml --triplet ${{ matrix.arch }}-windows-static
