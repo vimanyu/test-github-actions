@@ -84,8 +84,8 @@ jobs:
           sudo apt install gcc-multilib g++-multilib
           sudo apt list libglib*
           pkg-config --cflags --libs glib-2.0
-          ls /usr/lib/i386-linux-gnu/glib-2.0/include/glibconfig.h
           ls /usr/include/glib-2.0/glib/
+          ls /usr/lib/x64_86-linux-gnu/glib-2.0/include/glibconfig.h
 
       - name: Install dependencies on windows
         if: steps.cache.outputs.cache-hit!='true'
