@@ -86,7 +86,7 @@ jobs:
           pkg-config --cflags --libs glib-2.0
           ls /usr/include/glib-2.0/glib/
           ls /usr/lib/x86_64-linux-gnu/glib-2.0/include/glibconfig.h
-          dpkg --add-architecture x86
+          sudo dpkg --add-architecture x86
           sudo apt install libglib-2.0:i386
           ls /usr/lib/i386-linux-gnu/glib-2.0/include/glibconfig.h
 
