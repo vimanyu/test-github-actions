@@ -86,6 +86,7 @@ jobs:
           pkg-config --cflags --libs glib-2.0
           ls /usr/include/glib-2.0/glib/
           ls /usr/lib/x64_86-linux-gnu/glib-2.0/include/glibconfig.h
+          sudo apt install libglib-2.0:i386
 
       - name: Install dependencies on windows
         if: steps.cache.outputs.cache-hit!='true'
