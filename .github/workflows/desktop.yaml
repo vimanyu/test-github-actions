@@ -90,6 +90,8 @@ jobs:
           sudo apt update
           sudo apt install libglib2.0-dev:i386
           ls /usr/lib/i386-linux-gnu/glib-2.0/include/glibconfig.h
+          sudo apt install libsecret-1-dev
+          sudo apt install libsecret-1-dev:i386
 
       - name: Install dependencies on windows
         if: steps.cache.outputs.cache-hit!='true'
