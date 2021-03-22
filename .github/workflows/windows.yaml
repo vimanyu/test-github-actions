@@ -30,8 +30,8 @@ jobs:
 
       - name: Print variables
         run: |
-          echo  ${{ github.workspace }}
-          echo  ${{ github.home}}
+          echo "${{ github.workspace }}"
+          echo "${{ github.home}}"
 
 
       - name: Print env
