@@ -60,6 +60,12 @@ jobs:
         run: |
           echo  "YEAH THIS WORKED"
 
+      - name: Print variables
+        run: |
+          echo  ${{ github.workspace }}
+          echo  ${{ github.home}}
+
+
       - name: Print env
         run: |
           echo github.event.action: ${{ github.event.action }}
