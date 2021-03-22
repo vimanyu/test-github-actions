@@ -28,38 +28,6 @@ jobs:
         with:
           submodules: true
 
-      - name: Set env variables for subsequent steps (windows)
-        if: startswith(matrix.os, 'windows')
-        run: |
-          echo "::set-env name=TRIPLET::${{matrix.arch}}-windows-static"
-          echo "test"
-
-      - name: Set env variables for subsequent steps (ubuntu)
-        if: startswith(matrix.os, 'ubuntu')
-        run: |
-          echo "::set-env name=TRIPLET::${{matrix.arch}}-linux"
-
-      - name: Set env variables for subsequent steps (macos)
-        if: startswith(matrix.os, 'macos')
-        run: |
-          echo "::set-env name=TRIPLET::${{matrix.arch}}-osx"
-
-      - name: Set env variables for subsequent steps (all)
-        run: |
-          echo "::set-env name=TRIPLET_FILENAME::vcpkg_${{ env.TRIPLET }}_response_file.txt"
-          echo "::set-env name=RESPONSE_FILE::response_file.txt"
-          echo "::set-env name=RESPONSE_FILE_FULL::external/response_file.txt"
-
-      - name: Set env variable test
-        if: matrix.arch=='x86'
-        run: |
-          echo "::set-env name=SOMETHING_FOO::1"
-
-      - name: Print env variable test
-        if: env.SOMETHING_FOO
-        run: |
-          echo  "YEAH THIS WORKED"
-
       - name: Print variables
         run: |
           echo  ${{ github.workspace }}
